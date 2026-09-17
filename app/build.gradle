@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'fr.xeroxpcl.printservice'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "fr.xeroxpcl.printservice"
+        minSdk 29
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    // Clé de signature fixe, fournie avec le projet : chaque nouvelle compilation peut ainsi
+    // être installée par-dessus la précédente. Usage personnel uniquement.
+    signingConfigs {
+        fixed {
+            storeFile file("keystore/xeroxpcl.p12")
+            storeType "PKCS12"
+            storePassword "xeroxpcl"
+            keyAlias "xeroxpcl"
+            keyPassword "xeroxpcl"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.fixed
+        }
+        debug {
+            signingConfig signingConfigs.fixed
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+// Aucune dépendance externe : uniquement les API Android standard.
